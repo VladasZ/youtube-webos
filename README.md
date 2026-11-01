@@ -166,6 +166,24 @@ Or if you've set your TV as the default device:
 pnpm run inspect
 ```
 
+### File logs
+
+This fork writes logs to files on a rooted TV. The page on `youtube.com` has no
+file access, so `src/file-log.ts` posts its lines to a small server on
+`127.0.0.1:18999`, `assets/ytlogd.js`, that writes them to
+`/home/root/ytlogs/youtube.log`. A file goes up to 5 MB and 3 old ones are kept.
+
+To start the server at every boot, run this once on the TV as root:
+
+```sh
+app=/media/developer/apps/usr/palm/applications/youtube.leanback.v4
+cp $app/ytlogd-boot.sh /var/lib/webosbrew/init.d/ytlogd
+chmod 755 /var/lib/webosbrew/init.d/ytlogd
+/var/lib/webosbrew/init.d/ytlogd
+```
+
+Without the server the app works as usual and holds the last 5000 lines in memory.
+
 ---
 
 ## Alternate Setup (Rooted TV)

@@ -1,3 +1,4 @@
+import './file-log';
 import 'whatwg-fetch';
 import './domrect-polyfill';
 
